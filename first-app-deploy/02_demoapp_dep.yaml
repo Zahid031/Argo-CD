@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: allcomhub
+  name: demoapp-dep
+  namespace: allcomhub-ns
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: allcomhub
+  template:
+    metadata:
+      labels:
+        app: allcomhub
+    spec:
+      containers:
+      - image: zahid03/allcomhub:v1
+        name: allcomhub
