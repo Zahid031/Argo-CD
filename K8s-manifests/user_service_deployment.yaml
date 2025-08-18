@@ -32,8 +32,8 @@ spec:
         - sh
         - -c
         - |
-          until nc -zv postgres.todo.svc.cluster.local 5432; do echo "waiting for postgres"; sleep 2; done
-          until nc -zv rabbitmq.todo.svc.cluster.local 5672; do echo "waiting for rabbitmq"; sleep 2; done
+          until nc -zv postgres.todo-ns.svc.cluster.local 5432; do echo "waiting for postgres"; sleep 2; done
+          until nc -zv rabbitmq.todo-ns.svc.cluster.local 5672; do echo "waiting for rabbitmq"; sleep 2; done
       containers:
       - name: user-service
         image: zahid03/todo-user-service:latest
@@ -59,7 +59,7 @@ spec:
           valueFrom:
             secretKeyRef: {name: db-secret, key: POSTGRES_PASSWORD}
         - name: DATABASE_URL
-          value: postgresql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@postgres.todo.svc.cluster.local:5432/$(POSTGRES_DB)
+          value: postgresql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@postgres.todo-ns.svc.cluster.local:5432/$(POSTGRES_DB)
         - name: RABBITMQ_USER
           valueFrom:
             secretKeyRef: {name: rabbitmq-secret, key: RABBITMQ_DEFAULT_USER}
@@ -67,7 +67,7 @@ spec:
           valueFrom:
             secretKeyRef: {name: rabbitmq-secret, key: RABBITMQ_DEFAULT_PASS}
         - name: RABBITMQ_URL
-          value: amqp://$(RABBITMQ_USER):$(RABBITMQ_PASS)@rabbitmq.todo.svc.cluster.local:5672/
+          value: amqp://$(RABBITMQ_USER):$(RABBITMQ_PASS)@rabbitmq.todo-ns.svc.cluster.local:5672/
         readinessProbe:
           httpGet:
             path: /healthz
