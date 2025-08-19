@@ -10,7 +10,7 @@ spec:
   ports:
   - port: 80
     targetPort: 80
-    nodePort: 30080
+    nodePort: 30085
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -32,3 +32,14 @@ spec:
         image: zahid03/todo-frontend:latest
         ports:
         - containerPort: 80
+        env:
+          - name: VITE_API_USERS
+            valueFrom:
+              configMapKeyRef:
+                name: app-config
+                key: VITE_API_USERS
+          - name: VITE_API_TASKS
+            valueFrom:
+              configMapKeyRef:
+                name: app-config
+                key: VITE_API_TASKS
