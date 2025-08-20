@@ -6,7 +6,7 @@ metadata:
   name: demoapp-dep
   namespace: allcomhub-ns
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: allcomhub
