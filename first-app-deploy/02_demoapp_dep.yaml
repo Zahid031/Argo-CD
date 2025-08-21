@@ -16,5 +16,5 @@ spec:
         app: allcomhub
     spec:
       containers:
-      - image: zahid03/allcomhub:v1
+      - image: zahid03/allcomhub:v2
         name: allcomhub
